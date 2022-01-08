@@ -1,4 +1,8 @@
 let options = ['rock', 'paper', 'scissors'];
+let roundWinner = "";
+let userScore = 0;
+let computerScore = 0;
+let ties = 0;
 
 function getRndInt() {
     min = Math.ceil(0);
@@ -28,36 +32,50 @@ function userPlay() {
     let thisRoundUser = userInput;
     console.log(thisRoundUser);
     console.log(thisRoundComp);
-    let roundWinner = "tie"
 
     if (thisRoundUser === "rock" && thisRoundComp === "paper"){
-        roundWinner = "Computer Wins 1";        
+        roundWinner = "Computer Wins";        
     }   else if (thisRoundUser === "paper" && thisRoundComp === "scissors"){
-        roundWinner = "Computer Wins 2";
+        roundWinner = "Computer Wins";
     }   else if (thisRoundUser === "scissors" && thisRoundComp === "rock"){
-        roundWinner = "Computer Wins 3";
+        roundWinner = "Computer Wins";
     }   else if (thisRoundUser === thisRoundComp){
         roundWinner = "tie"
     }   else {
         roundWinner = "User Wins";
     }
-    console.log(roundWinner)
-     
-    
-    
-    return "all finished";       
+    console.log(roundWinner); 
+    return roundWinner;       
         
 } 
 
-
-userPlay();
-
 function multipleRounds(){
+    
+    
     for (let roundNumber = 0; roundNumber < 5; roundNumber++){
         userPlay();
+        console.log(userScore);
+        console.log(computerScore);
+        console.log(roundWinner);
         
+        if (roundWinner === "User Wins"){
+            userScore++;
+        }   else if (roundWinner === "tie"){
+            ties++;
+        }   else {
+            computerScore++;
+        }
+    }
+        
+        
+        if (userScore > computerScore){
+        console.log("Congratulations");
+    }   else{
+        console.log("Bad luck");
     }
 }
+
+multipleRounds();
 
 /*function comparePlay() {
 
