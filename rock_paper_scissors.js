@@ -15,45 +15,66 @@ function computerPlay() {
     return computerInput;
 }
 
-function userPlay() {
-    let correctInput = "No"
-    let userInput = ""
-    
-    while (correctInput = "No"){
-        userInput = prompt("Choose your weapon", "rock, paper, or scissors");
-        if (userInput === "rock" || userInput === "scissors" || userInput === "paper"){   console.log(userInput + "1");
-            break;
-        }   else {
-            alert("not a valid response");
-        }
-    }
-    
+function userPlay(userInput) {    
     let thisRoundComp = computerPlay();
     let thisRoundUser = userInput;
     console.log(thisRoundUser);
     console.log(thisRoundComp);
 
     if (thisRoundUser === "rock" && thisRoundComp === "paper"){
-        roundWinner = "Computer Wins";        
+        roundWinner = "Computer Wins";
+        accumulator(roundWinner);
     }   else if (thisRoundUser === "paper" && thisRoundComp === "scissors"){
         roundWinner = "Computer Wins";
+        accumulator(roundWinner);
     }   else if (thisRoundUser === "scissors" && thisRoundComp === "rock"){
         roundWinner = "Computer Wins";
+        accumulator(roundWinner);
     }   else if (thisRoundUser === thisRoundComp){
         roundWinner = "tie"
+        accumulator(roundWinner);
     }   else {
         roundWinner = "User Wins";
+        accumulator(roundWinner);
     }
-    console.log(roundWinner); 
+    console.log(roundWinner);
     return roundWinner;       
         
 } 
 
-function multipleRounds(){
+function accumulator(roundWinner) {
+    if (roundWinner === "User Wins") {
+        userScore++;
+        console.log(userScore);
+        let scoreContainer = document.querySelector(".user-score");
+        scoreContainer.textContent = userScore;
+    } else if (roundWinner === "tie") {
+        ties++;
+    } else {
+        computerScore++;
+        let scoreContainer = document.querySelector(".computer-score");
+        scoreContainer.textContent = computerScore;
+    }
+    isThereAWinner();
+}
+
+function isThereAWinner() {
+    if (userScore === 5) {
+        console.log("Congratulations!");
+        removeListener()
+    } else if(computerScore === 5){
+        console.log("BadLuck!");
+        removeListener()
+    } else {
+    }
+}
+
+
+/*function multipleRounds(userInput){
     
     
     for (let roundNumber = 0; roundNumber < 5; roundNumber++){
-        userPlay();
+        userPlay(userInput);
         console.log(userScore);
         console.log(computerScore);
         console.log(roundWinner);
@@ -69,60 +90,28 @@ function multipleRounds(){
         
         
         if (userScore > computerScore){
-        console.log("Congratulations");
+            console.log("Congratulations");
+            return
     }   else{
-        console.log("Bad luck");
+            console.log("Bad luck");
+            return
+    }
+}*/
+
+let button = document.querySelectorAll("button.choice");
+
+function buttonClick(e) {
+    let userInput = e.target.id;
+    userPlay(userInput);
+
+}
+
+function removeListener() {
+    for (let index = 0; index < button.length; index++) {
+        button[index].removeEventListener("click",buttonClick);
     }
 }
 
-multipleRounds();
-
-/*function comparePlay() {
-
+for (let index = 0; index < button.length; index++) {
+    button[index].addEventListener("click", buttonClick);
 }
-while (userInput !== "rock") {
-        userInput = prompt("Incorrect, choose again:", "rock, paper, or scissors");
-    }
-    return userInput;
-function comparePlay() {
-    let thisRoundComp = computerPlay();
-    let thisRoundUser = userInput;
-    console.log(thisRoundUser);
-    console.log(thisRoundComp);
-    let roundWinner = "tie"
-
-    if (thisRoundUser === "rock" && thisRoundComp === "paper"){
-        roundWinner = "Computer Wins 1";        
-    }   else if (thisRoundUser === "paper" && thisRoundComp === "scissors"){
-        roundWinner = "Computer Wins 2";
-    }   else if (thisRoundUser === "scissors" && thisRoundComp === "rock"){
-        roundWinner = "Computer Wins 3";
-    }   else if (thisRoundUser === thisRoundComp){
-        roundWinner = "tie"
-    }   else {
-        roundWinner = "User Wins";
-    }
-    console.log(roundWinner)
-    return "all finished";
-}
-
-function userPlay() {
-    let userInput = prompt("Choose your weapon", "rock");
-
-    while (userInput !== "rock" /*|| userInput !== "scissors" || userInput !== "paper") {
-        alert ("not a valid choice");
-        userInput = prompt("Choose your weapon", "Enter rock, paper, or scissors here");
-    }
-
-    comparePlay();
-
-    if (userInput === "rock" || userInput === "scissors" || userInput === "paper") {
-        console.log(userInput + "1");
-        comparePlay()
-        
-    }   else {
-        alert ("not a valid choice");
-    }
-    return;
-}    
-userPlay();*/
